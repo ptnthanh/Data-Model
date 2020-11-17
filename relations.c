@@ -90,7 +90,6 @@ CSGLIST lookup_CSG(CSG csg, CSGLIST table[], bool print) {
 
 void insert_CSG(CSG csg, CSGLIST table[], bool print) {
 	int code = hashIntAndString(csg.studentId, csg.course);
-	//printf("%d\n", code);
 
 	if (lookup_CSG(csg, table, false) != NULL) {
 		if (print)
@@ -108,10 +107,7 @@ void insert_CSG(CSG csg, CSGLIST table[], bool print) {
 			this->next = new;
 			this = new;
 		}
-
 		memcpy(this, &csg, sizeof(CSG));
-		//printf("%s %d %s\n", this->course, this->studentId, this->grade);
-
 		if (print)
 			printf("Tuple (%s, %d, %s) has been inserted into CSG.\n", csg.course, csg.studentId, csg.grade);
 		return;
@@ -121,35 +117,13 @@ void insert_CSG(CSG csg, CSGLIST table[], bool print) {
 
 void delete_CSG(CSG csg, CSGLIST table[], bool print) {
 	int code = hashIntAndString(csg.studentId, csg.course);
-
-	if (lookup_CSG(csg, table, false) == NULL) {
-		if (print)
-			printf("Tuple (%s, %d, %s) was not in CSG.\n", csg.course, csg.studentId, csg.grade);
-		return;
-	}
-
 	CSGLIST this = table[code];
-	if (this->course == csg.course && this->studentId == csg.studentId && this->grade == csg.grade) {
-		if (this->next == NULL) {
+
+	while (this != NULL) {
+		if (this->course == csg.course && this->studentId == csg.studentId && this->grade == csg.grade) {
 			this->course = NULL;
 			this->studentId = 0;
 			this->grade = NULL;
-			if (print)
-				printf("Tuple (%s, %d, %s) was deleted from CSG.\n", csg.course, csg.studentId, csg.grade);
-			return;
-		}
-		//CSGLIST next = this->next;
-		this->next = this->next->next;
-		if (print)
-			printf("Tuple (%s, %d, %s) was deleted from CSG.\n", csg.course, csg.studentId, csg.grade);
-		return;
-	}
-
-
-	while (this->next != NULL) {
-		if (this->course == csg.course && this->studentId == csg.studentId && this->grade == csg.grade) {
-			//CSGLIST res = this->next;
-			this->next = this->next->next;
 			if (print)
 				printf("Tuple (%s, %d, %s) was deleted from CSG.\n", csg.course, csg.studentId, csg.grade);
 			return;
@@ -182,27 +156,17 @@ SNAPLIST lookup_SNAP(SNAP snap, SNAPLIST table[], bool print) {
 	int code = hashInt(snap.studentId);
 	SNAPLIST this = table[code];
 
-	if (this->name == NULL) {
-		if (print) {
-			printf("Tuple (%d, %s, %s, %s) could not be found in SNAP.\n",
-					snap.studentId, snap.name, snap.address, snap.phone);
-		}
-		return NULL;
-	}
-
 	while (this != NULL) {
 		if (this->studentId==snap.studentId && this->name==snap.name && this->address==snap.address && this->phone==snap.phone) {
 			if (print)
-				printf("Tuple (%d, %s, %s, %s) was found at index %d.\n",
-								snap.studentId, snap.name, snap.address, snap.phone, code);
+				printf("Tuple (%d, %s, %s, %s) was found at index %d.\n", snap.studentId, snap.name, snap.address, snap.phone, code);
 			return this;
 		}
 		this = this->next;
 	}
 
 	if (print)
-		printf("Tuple (%d, %s, %s, %s) could not be found in SNAP.\n",
-				snap.studentId, snap.name, snap.address, snap.phone);
+		printf("Tuple (%d, %s, %s, %s) could not be found in SNAP.\n", snap.studentId, snap.name, snap.address, snap.phone);
 	return NULL;
 }
 
@@ -211,8 +175,7 @@ void insert_SNAP(SNAP snap, SNAPLIST table[], bool print) {
 
 	if (lookup_SNAP(snap, table, false) != NULL) {
 		if (print)
-			printf("Tuple (%d, %s, %s, %s) already in SNAP.\n",
-					snap.studentId, snap.name, snap.address, snap.phone);
+			printf("Tuple (%d, %s, %s, %s) already in SNAP.\n", snap.studentId, snap.name, snap.address, snap.phone);
 		return;
 	} else {
 		SNAPLIST this = table[code];
@@ -228,8 +191,7 @@ void insert_SNAP(SNAP snap, SNAPLIST table[], bool print) {
 		memcpy(this, &snap, sizeof(SNAP));
 
 		if (print)
-			printf("Tuple (%d, %s, %s, %s) has been inserted into SNAP.\n",
-					snap.studentId, snap.name, snap.address, snap.phone);
+			printf("Tuple (%d, %s, %s, %s) has been inserted into SNAP.\n", snap.studentId, snap.name, snap.address, snap.phone);
 		return;
 	}
 
@@ -237,47 +199,22 @@ void insert_SNAP(SNAP snap, SNAPLIST table[], bool print) {
 
 void delete_SNAP(SNAP snap, SNAPLIST table[], bool print) {
 	int code = hashInt(snap.studentId);
-
-	if (lookup_SNAP(snap, table, false) == NULL) {
-		if (print)
-			printf("Tuple (%d, %s, %s, %s) was not in SNAP.\n",
-					snap.studentId, snap.name, snap.address, snap.phone);
-		return;
-	}
-
 	SNAPLIST this = table[code];
-	if (this->name == NULL) {
-		if (print)
-			printf("Tuple (%d, %s, %s, %s) was not in SNAP.\n",
-					snap.studentId, snap.name, snap.address, snap.phone);
-		return;
-	}
 
-	if (this->studentId == snap.studentId) {
-		this->studentId = 0;
-		this->name = NULL;
-		this->address = NULL;
-		this->phone = NULL;
-
-		if (print)
-			printf("Tuple (%d, %s, %s, %s) was deleted from SNAP.\n",
-					snap.studentId, snap.name, snap.address, snap.phone);
-		return;
-	}
-
-	while (this->next != NULL && this->next) {
+	while (this != NULL) {
 		if (this->studentId == snap.studentId) {
-			this->next = this->next->next;
+			this->studentId = 0;
+			this->name = NULL;
+			this->address = NULL;
+			this->phone = NULL;
 			if (print)
-				printf("Tuple (%d, %s, %s, %s) was deleted from SNAP.\n",
-						snap.studentId, snap.name, snap.address, snap.phone);
+				printf("Tuple (%d, %s, %s, %s) was deleted from SNAP.\n", snap.studentId, snap.name, snap.address, snap.phone);
 			return;
 		}
 		this = this->next;
 	}
 	if (print)
-		printf("Tuple (%d, %s, %s, %s) was not in SNAP.\n",
-				snap.studentId, snap.name, snap.address, snap.phone);
+		printf("Tuple (%d, %s, %s, %s) was not in SNAP.\n", snap.studentId, snap.name, snap.address, snap.phone);
 }
 
 // CP
@@ -296,7 +233,7 @@ void print_CP(CPLIST table[]) {
 }
 
 void insert_CP(CP cp, CPLIST table[], bool print) {
-	int code = hashString(cp.course);
+	int code = hashTwoStrings(cp.course, cp.prereq);
 
 	if (lookup_CP(cp, table, false) != NULL) {
 		if (print)
@@ -322,34 +259,14 @@ void insert_CP(CP cp, CPLIST table[], bool print) {
 	}
 }
 
-// Check this!
 void delete_CP(CP cp, CPLIST table[], bool print) {
-	int code = hashString(cp.course);
+	int code = hashTwoStrings(cp.course, cp.prereq);
 	CPLIST this = table[code];
 
-	if (lookup_CP(cp, table, false) == NULL) {
-		if (print)
-			printf("Tuple (%s, %s) was not in CP.\n", cp.course, cp.prereq);
-		return;
-	}
-
-	if (this->course == NULL) {
-		if (print)
-			printf("Tuple (%s, %s) was not in CP.\n", cp.course, cp.prereq);
-		return;
-	}
-
-	if (this->course == cp.course && this->prereq == cp.prereq) {
-		this->course = NULL;
-		this->prereq = NULL;
-		if (print)
-			printf("Tuple (%s, %s) has been deleted from CP.\n", cp.course, cp.prereq);
-		return;
-	}
-
-	while (this->next != NULL) {
+	while (this != NULL) {
 		if (this->course == cp.course && this->prereq == cp.prereq) {
-			this->next = this->next->next;
+			this->course = NULL;
+			this->prereq = NULL;
 			if (print)
 				printf("Tuple (%s, %s) has been deleted from CP.\n", cp.course, cp.prereq);
 			return;
@@ -363,14 +280,8 @@ void delete_CP(CP cp, CPLIST table[], bool print) {
 }
 
 CPLIST lookup_CP(CP cp, CPLIST table[], bool print) {
-	int code = hashString(cp.course);
+	int code = hashTwoStrings(cp.course, cp.prereq);
 	CPLIST this = table[code];
-
-	if (this->course == NULL) {
-		if (print)
-			printf("Tuple (%s, %s) could not be found in CP.\n", cp.course, cp.prereq);
-		return NULL;
-	}
 
 	while (this != NULL) {
 		if (this->course == cp.course && this->prereq == cp.prereq) {
@@ -428,25 +339,8 @@ void insert_CDH(CDH cdh, CDHLIST table[], bool print) {
 void delete_CDH(CDH cdh, CDHLIST table[], bool print) {
 	int code = hashTwoStrings(cdh.course, cdh.day);
 	CDHLIST this = table[code];
-	if (lookup_CDH(cdh, table, false) == NULL) {
-		if (print)
-			printf("Tuple (%s, %s, %s) was not in CDH.\n", cdh.course, cdh.day, cdh.hour);
-		return;
-	}
-	if (this->course == NULL) {
-		if (print)
-			printf("Tuple (%s, %s, %s) was not in CDH.\n", cdh.course, cdh.day, cdh.hour);
-		return;
-	}
-	if (this->course == cdh.course && this->day == cdh.day) {
-		this->course = NULL;
-		this->hour = NULL;
-		this->day = NULL;
-		if (print)
-			printf("Tuple (%s, %s, %s) has been deleted from CDH.\n", cdh.course, cdh.day, cdh.hour);
-		return;
-	}
-	while (this->next != NULL) {
+
+	while (this != NULL) {
 		if (this->course == cdh.course && this->day == cdh.day) {
 			this->course = NULL;
 			this->hour = NULL;
@@ -465,11 +359,7 @@ void delete_CDH(CDH cdh, CDHLIST table[], bool print) {
 CDHLIST lookup_CDH(CDH cdh, CDHLIST table[], bool print) {
 	int code = hashTwoStrings(cdh.course, cdh.day);
 	CDHLIST this = table[code];
-	if (this->course == NULL) {
-		if (print)
-			printf("Tuple (%s, %s, %s) could not be found in CDH.\n", cdh.course, cdh.day, cdh.hour);
-		return NULL;
-	}
+
 	while (this != NULL) {
 		if (this->course == cdh.course && this->day == cdh.day) {
 			if (print)
@@ -521,17 +411,28 @@ void insert_CR(CR cr, CRLIST table[], bool print) {
 }
 
 void delete_CR(CR cr, CRLIST table[], bool print) {
+	int code = hashString(cr.course);
+	CRLIST this = table[code];
+
+	while (this != NULL) {
+		if (this->course == cr.course) {
+			char* c = this->course;
+			char* r = this->room;
+			this->course = NULL;
+			this->room = NULL;
+			if (print) printf("Tuple (%s, %s) has been deleted from CR.\n", c, r);
+			return;
+		}
+		this = this->next;
+	}
+
+	if (print) printf("Tuple (%s, %s) was not in CR.\n", cr.course, cr.room);
 
 }
 
 CRLIST lookup_CR(CR cr, CRLIST table[], bool print) {
 	int code = hashString(cr.course);
 	CRLIST this = table[code];
-	if (this->course == NULL) {
-		if (print)
-			printf("Tuple (%s, %s) could not be found in CR.\n", cr.course, cr.room);
-		return NULL;
-	}
 	while (this != NULL) {
 		if (this->course == cr.course && this->room == cr.room) {
 			if (print)
@@ -544,3 +445,63 @@ CRLIST lookup_CR(CR cr, CRLIST table[], bool print) {
 		printf("Tuple (%s, %s) could not be found in CR.\n", cr.course, cr.room);
 	return NULL;
 }
+
+// CRDH
+//CRDH new_CRDH(char* c, char* r, char* d, char* h) {
+//	CRDH crdh = (CRDH)malloc(sizeof(CRDH));
+//	crdh.course = c;
+//	crdh.room = r;
+//	crdh.day = d;
+//	crdh.hour = h;
+//	crdh.next = NULL;
+//	return crdh;
+//}
+
+void print_CRDH(CRDHLIST table[]) {
+	CRDHLIST curr;
+	for (int i = 0; i < TABLE_SIZE; i++) {
+		curr = table[i];
+		if (curr->course != NULL) {
+			printf("(%s, %s, %s, %s)\n", curr->course, curr->room, curr->day, curr->hour);
+			while (curr->next != NULL) {
+				curr = curr->next;
+				printf("%s\t%s\t%s\t%s\n", curr->course, curr->room, curr->day, curr->hour);
+			}
+		}
+	}
+}
+
+//void insert_CRDH(CRDHLIST crdh, CRDHLIST table[], bool print) {
+//	int code = hashString(crdh->course);
+//	if (lookup_CRDH(crdh, table, false) != NULL) {
+//		if (print)
+//			printf("Tuple (%s, %s, %s, %s) is already in CRDH.\n", crdh->course, crdh->room, crdh->day, crdh->hour);
+//		return;
+//	} else {
+//		CRDHLIST this = table[code];
+//		while (this->next != NULL) {
+//			this = this->next;
+//		}
+//		CRDHLIST new = (CRDHLIST)malloc(sizeof(CRDH));
+//		if (this->course != NULL) {
+//			this->next = new;
+//			this = new;
+//		}
+//	}
+//}
+//
+//CRDHLIST lookup_CRDH(CRDHLIST crdh, CRDHLIST table[], bool print) {
+//	int code = hashString(crdh->course);
+//	CRDHLIST this = table[code];
+//	while (this != NULL) {
+//		if (this->course == crdh->course) {
+//			if (print)
+//				printf("Tuple (%s, %s, %s, %s) was found at index %d.\n", crdh->course, crdh->room, crdh->day, crdh->hour, code);
+//			return this;
+//		}
+//		this = this->next;
+//	}
+//	if (print)
+//		printf("Tuple (%s, %s, %s, %s) could not be found in CRDH.\n", crdh->course, crdh->room, crdh->day, crdh->hour);
+//	return NULL;
+//}

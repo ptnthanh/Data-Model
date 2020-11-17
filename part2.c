@@ -10,6 +10,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>
+#include <string.h>
 
 /*	What grade did StudentName get in CourseName?
  *  for each tuple t in StudentId-Name-Address-Phone do
@@ -34,6 +35,32 @@ char* getGrade(char* name, char* course, SNAPLIST snap_table[], CSGLIST csg_tabl
 		}
 	}
 	return NULL;
+}
+
+void REPL_getGrade(SNAPLIST snap_table[], CSGLIST csg_table[]) {
+	char name[30];
+	char course[6];
+	while (strcmp("quit", name) != 0 && strcmp("quit", name) != 0) {
+		printf("Enter student name (\"quit\" to quit): ");
+		fgets(name, 30, stdin);
+		if (strcmp("quit", name) == 0) {
+			break;
+		}
+		printf("Enter course name (\"quit\" to quit): ");
+		fgets(course, 6, stdin);
+		if (strcmp("quit", course) == 0) {
+			break;
+		}
+		printf("%s)\n", name);
+		printf("%s)\n", course);
+		printf("%s\n", getGrade(name, course, snap_table, csg_table));
+		if (getGrade(name, course, snap_table, csg_table) != NULL) {
+			printf("What grade did %s get in %s? --> %s\n", name, course,
+					getGrade(name, course, snap_table, csg_table));
+		} else {
+			printf("What grade did %s get in %s? --> No grade found.\n", name, course);
+		}
+	}
 }
 
 // Where is StudentName at Time on Day?
@@ -63,3 +90,33 @@ char* getRoom(char* name, char* time, char* day, CSGLIST csg_table[], CRLIST cr_
 	}
 	return NULL;
 }
+
+void REPL_getRoom(CSGLIST csg_table[], CRLIST cr_table[], SNAPLIST snap_table[], CDHLIST cdh_table[]) {
+	char name[30];
+	char time[4];
+	char day[2];
+		while (strcmp("quit", name) != 0 && strcmp("quit", name) != 0) {
+			printf("Enter student name (\"quit\" to quit): ");
+			fgets(name, 30, stdin);
+			if (strcmp("quit", name) == 0) {
+				break;
+			}
+			printf("Enter the day (\"quit\" to quit): ");
+			fgets(day, 2, stdin);
+			if (strcmp("quit", day) == 0) {
+				break;
+			}
+			printf("Enter the time (\"quit\" to quit): ");
+			fgets(time, 4, stdin);
+			if (strcmp("quit", time) == 0) {
+				break;
+			}
+			if (getRoom(name, time, day, csg_table, cr_table, snap_table, cdh_table) != NULL) {
+				printf("Where is %s at %s on %s? --> %s\n", name, time, day,
+						getRoom(name, time, day, csg_table, cr_table, snap_table, cdh_table));
+			} else {
+				printf("Where is %s at %s on %s? --> No room found.", name, time, day);
+			}
+		}
+}
+

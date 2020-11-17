@@ -11,6 +11,7 @@
 
 #include "relations.h"
 #include "part2.h"
+#include "algebra.h"
 
 int main (int argc, char *argv[]) {
 
@@ -186,12 +187,70 @@ int main (int argc, char *argv[]) {
 	printf("All tuples in CR: \n");
 	print_CR(CR_table);
 
-	//Operations in Example 8.2
 
 	printf("\n\t *** Part 2 ***\n");
+	printf("What grade did StudentName get in CourseName?\n");
 	char* grade = getGrade("L. Van Pelt", "CS101", SNAP_table, CSG_table);
-	printf("%s\n", grade);
+	printf("%s \n", grade);
 
-	char* room = getRoom("C. Brown", "10AM", "Tu", CSG_table, CR_table, SNAP_table, CDH_table);
-	printf("Room %s\n", room);
+	printf("\nWhere is StudentName at Time on Day?\n");
+//	char* room = getRoom("C. Brown", "10AM", "Tu", CSG_table, CR_table, SNAP_table, CDH_table);
+//	printf("Room %s\n", room);
+
+//	REPL_getGrade(SNAP_table, CSG_table);
+
+
+	printf("\n\t *** Relational Algebra ***\n");
+
+	printf("\nSelect tuples with Course component \"CS101\" from CSG: \n");
+	CSGLIST* select = select_CSG("CS101", CSG_table);
+	print_CSG(select);
+
+	printf("\nProject Student ID of students taking CS101: \n");
+	project_CSG("CS101", CSG_table);
+
+	printf("\nJoin CDH and CR relations: \n");
+	CRDHLIST* test = join_CDH_CR(CDH_table, CR_table);
+	print_CRDH(test);
+
+	//project_CRDH("Turing Aud.", test);
+
+//	Operations in Example 8.2
+	printf("\n\t *** Part 1 - Example 8.2 Operations ***\n");
+	//lookup(("CS101", 12345, *), CSG)
+	printf("lookup((\"CS101\", 12345, *), CSG) --> ");
+	csg.course = "CS101";
+	csg.studentId = 12345;
+	csg.grade = "A";
+	lookup_CSG(csg, CSG_table, true);
+
+	//lookup((“CS205”, “CS120”), CP)
+	printf("lookup((\"CS205\", \"CS120\"), CP) --> ");
+	cp.course = "CS205";
+	cp.prereq = "CS120";
+	lookup_CP(cp, CP_table, true);
+
+	//delete(("CS101", *), CR)
+	printf("\ndelete((\"CS101\", *), CR) --> ");
+	cr.course = "CS101";
+	delete_CR(cr, CR_table, true);
+	printf("CR Table after deletion: \n");
+	print_CR(CR_table);
+
+	//insert(("CS205", "CS120"), CP)
+	printf("\ninsert((\"CS205\", \"CS120\"), CP) --> ");
+	cp.course = "CS205";
+	cp.prereq = "CS120";
+	insert_CP(cp, CP_table, true);
+	printf("CP Table after insertion: \n");
+	print_CP(CP_table);
+
+	//insert("CS205", "CS101"), CP)
+	printf("\ninsert((\"CS205\", \"CS101\"), CP) --> ");
+	cp.prereq = "CS101";
+	insert_CP(cp, CP_table, true);
+	printf("CP Table after insertion: \n");
+	print_CP(CP_table);
+
+	printf("\n\t ---------- END OF PROGARM ----------\n\n");
 }

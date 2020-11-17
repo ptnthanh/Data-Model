@@ -10,8 +10,10 @@
 
 #include "relations.h"
 
-extern select_CSG(CSGLIST csg_table[]);
-extern project_CSG(CSGLIST csg_table[]);
-extern join_CDH_CR(CDHLIST cdh_table[], CRLIST cr_table[]);
+extern CSGLIST* select_CSG(char* course, CSGLIST csg_table[]);
+extern void project_CSG(char* course, CSGLIST csg_table[]);
+extern CRDHLIST* join_CDH_CR(CDHLIST cdh_table[], CRLIST cr_table[]);
+extern CRDHLIST select_CRDH(char* room, CRDHLIST table);
+extern void project_CRDH(char* room, CRDHLIST table);
 
 #endif /* ALGEBRA_H_ */

@@ -104,7 +104,10 @@ typedef struct CRDH {
     CRDHLIST next;
 } CRDH;
 
+//extern CRDH new_CRDH(char* c, char* r, char* d, char* h);
 extern void print_CRDH(CRDHLIST table[]);
+//extern void insert_CRDH(CRDHLIST crdh, CRDHLIST table[], bool print);
+//extern CRDHLIST lookup_CRDH(CRDHLIST crdh, CRDHLIST table[], bool print);
 
 //------------------------------
 //typedef struct ID* ID_RELATION;
