@@ -1,10 +1,3 @@
-/*
- * part2.c
- *
- *  Created on: Nov 15, 2020
- *      Author: thanhpham
- */
-
 #include "part2.h"
 
 #include <stdio.h>
@@ -95,28 +88,28 @@ void REPL_getRoom(CSGLIST csg_table[], CRLIST cr_table[], SNAPLIST snap_table[],
 	char name[30];
 	char time[4];
 	char day[2];
-		while (strcmp("quit", name) != 0 && strcmp("quit", name) != 0) {
-			printf("Enter student name (\"quit\" to quit): ");
-			fgets(name, 30, stdin);
-			if (strcmp("quit", name) == 0) {
-				break;
-			}
-			printf("Enter the day (\"quit\" to quit): ");
-			fgets(day, 2, stdin);
-			if (strcmp("quit", day) == 0) {
-				break;
-			}
-			printf("Enter the time (\"quit\" to quit): ");
-			fgets(time, 4, stdin);
-			if (strcmp("quit", time) == 0) {
-				break;
-			}
-			if (getRoom(name, time, day, csg_table, cr_table, snap_table, cdh_table) != NULL) {
-				printf("Where is %s at %s on %s? --> %s\n", name, time, day,
-						getRoom(name, time, day, csg_table, cr_table, snap_table, cdh_table));
-			} else {
-				printf("Where is %s at %s on %s? --> No room found.", name, time, day);
-			}
+	while (strcmp("quit", name) != 0 && strcmp("quit", name) != 0) {
+		printf("Enter student name (\"quit\" to quit): ");
+		fgets(name, 30, stdin);
+		if (strcmp("quit", name) == 0) {
+			break;
 		}
+		printf("Enter the day (\"quit\" to quit): ");
+		fgets(day, 2, stdin);
+		if (strcmp("quit", day) == 0) {
+			break;
+		}
+		printf("Enter the time (\"quit\" to quit): ");
+		fgets(time, 4, stdin);
+		if (strcmp("quit", time) == 0) {
+			break;
+		}
+		if (getRoom(name, time, day, csg_table, cr_table, snap_table, cdh_table) != NULL) {
+			printf("Where is %s at %s on %s? --> %s\n", name, time, day,
+					getRoom(name, time, day, csg_table, cr_table, snap_table, cdh_table));
+		} else {
+			printf("Where is %s at %s on %s? --> No room found.", name, time, day);
+		}
+	}
 }
 

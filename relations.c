@@ -1,10 +1,3 @@
-/*
- * csg.c
- *
- *  Created on: Nov 14, 2020
- *      Author: thanhpham
- */
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -13,8 +6,8 @@
 
 int TABLE_SIZE = 1009;
 
-// Hashing
 
+// Hashing
 int stringToInt(char* str) {
 	int step = sizeof(char);
 	int returner = 0;
@@ -53,8 +46,8 @@ int hashTwoStrings(char* s1, char* s2) {
 	return ((st1 + st2) % TABLE_SIZE);
 }
 
-// CSG
 
+// CSG
 void print_CSG(CSGLIST table[]) {
 	CSGLIST curr;
 	for (int i = 0; i < TABLE_SIZE; i++) {
@@ -136,8 +129,8 @@ void delete_CSG(CSG csg, CSGLIST table[], bool print) {
 
 }
 
-// SNAP
 
+// SNAP
 void print_SNAP(SNAPLIST table[]) {
 	SNAPLIST curr;
 	for (int i = 0; i < TABLE_SIZE; i++) {
@@ -216,6 +209,7 @@ void delete_SNAP(SNAP snap, SNAPLIST table[], bool print) {
 	if (print)
 		printf("Tuple (%d, %s, %s, %s) was not in SNAP.\n", snap.studentId, snap.name, snap.address, snap.phone);
 }
+
 
 // CP
 void print_CP(CPLIST table[]) {
@@ -297,6 +291,7 @@ CPLIST lookup_CP(CP cp, CPLIST table[], bool print) {
 	return NULL;
 }
 
+
 // CDH
 void print_CDH(CDHLIST table[]) {
 	CDHLIST curr;
@@ -373,6 +368,7 @@ CDHLIST lookup_CDH(CDH cdh, CDHLIST table[], bool print) {
 	return NULL;
 }
 
+
 //CR
 void print_CR(CRLIST table[]) {
 	CRLIST curr;
@@ -446,17 +442,8 @@ CRLIST lookup_CR(CR cr, CRLIST table[], bool print) {
 	return NULL;
 }
 
-// CRDH
-//CRDH new_CRDH(char* c, char* r, char* d, char* h) {
-//	CRDH crdh = (CRDH)malloc(sizeof(CRDH));
-//	crdh.course = c;
-//	crdh.room = r;
-//	crdh.day = d;
-//	crdh.hour = h;
-//	crdh.next = NULL;
-//	return crdh;
-//}
 
+// CRDH
 void print_CRDH(CRDHLIST table[]) {
 	CRDHLIST curr;
 	for (int i = 0; i < TABLE_SIZE; i++) {
@@ -471,37 +458,3 @@ void print_CRDH(CRDHLIST table[]) {
 	}
 }
 
-//void insert_CRDH(CRDHLIST crdh, CRDHLIST table[], bool print) {
-//	int code = hashString(crdh->course);
-//	if (lookup_CRDH(crdh, table, false) != NULL) {
-//		if (print)
-//			printf("Tuple (%s, %s, %s, %s) is already in CRDH.\n", crdh->course, crdh->room, crdh->day, crdh->hour);
-//		return;
-//	} else {
-//		CRDHLIST this = table[code];
-//		while (this->next != NULL) {
-//			this = this->next;
-//		}
-//		CRDHLIST new = (CRDHLIST)malloc(sizeof(CRDH));
-//		if (this->course != NULL) {
-//			this->next = new;
-//			this = new;
-//		}
-//	}
-//}
-//
-//CRDHLIST lookup_CRDH(CRDHLIST crdh, CRDHLIST table[], bool print) {
-//	int code = hashString(crdh->course);
-//	CRDHLIST this = table[code];
-//	while (this != NULL) {
-//		if (this->course == crdh->course) {
-//			if (print)
-//				printf("Tuple (%s, %s, %s, %s) was found at index %d.\n", crdh->course, crdh->room, crdh->day, crdh->hour, code);
-//			return this;
-//		}
-//		this = this->next;
-//	}
-//	if (print)
-//		printf("Tuple (%s, %s, %s, %s) could not be found in CRDH.\n", crdh->course, crdh->room, crdh->day, crdh->hour);
-//	return NULL;
-//}

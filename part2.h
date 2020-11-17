@@ -1,10 +1,3 @@
-/*
- * part2.h
- *
- *  Created on: Nov 15, 2020
- *      Author: thanhpham
- */
-
 #ifndef PART2_H_
 #define PART2_H_
 

@@ -1,10 +1,3 @@
-/*
- * main.c
- *
- *  Created on: Nov 14, 2020
- *      Author: thanhpham
- */
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -213,7 +206,8 @@ int main (int argc, char *argv[]) {
 	join_CDH_CR(CDH_table, CR_table);
 	//print_CRDH(test);
 
-	alternative("Turing Aud.",CDH_table, CR_table);
+	printf("\nProject Day and Hour of tuple with Room=\"Turing Aud.\" in CRDH: \n");
+	join_select_project_CRDH("Turing Aud.",CDH_table, CR_table);
 
 	//project_CRDH("Turing Aud.", test);
 
