@@ -210,8 +210,8 @@ int main (int argc, char *argv[]) {
 	project_CSG("CS101", CSG_table);
 
 	printf("\nJoin CDH and CR relations: \n");
-	CRDHLIST* test = join_CDH_CR(CDH_table, CR_table);
-	print_CRDH(test);
+	join_CDH_CR(CDH_table, CR_table);
+	//print_CRDH(test);
 
 	//project_CRDH("Turing Aud.", test);
 

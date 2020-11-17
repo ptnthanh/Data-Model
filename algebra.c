@@ -49,11 +49,11 @@ CRDHLIST* join_CDH_CR(CDHLIST cdh_table[], CRLIST cr_table[]) {
 	CRDHLIST* res = (CRDHLIST*)malloc(TABLE_SIZE * sizeof(CRDHLIST));
 	CDHLIST cdh;
 	CRLIST cr;
-	CRDHLIST joined = (CRDHLIST)malloc(sizeof(CRDH));
-	joined->course = (char*) malloc(7 * sizeof(char));
-	joined->day = (char*) malloc(2 * sizeof(char));
-	joined->hour = (char*) malloc(5 * sizeof(char));
-	joined->room = (char*) malloc(30 * sizeof(char));
+//	CRDHLIST joined = (CRDHLIST)malloc(sizeof(CRDH));
+//	joined->course = (char*) malloc(7 * sizeof(char));
+//	joined->day = (char*) malloc(2 * sizeof(char));
+//	joined->hour = (char*) malloc(5 * sizeof(char));
+//	joined->room = (char*) malloc(30 * sizeof(char));
 
 	int index;
 
@@ -65,26 +65,18 @@ CRDHLIST* join_CDH_CR(CDHLIST cdh_table[], CRLIST cr_table[]) {
 			index = hashString(course);
 			cr = cr_table[index];
 
-			joined->course = course;
-			joined->room = cr->room;
-			joined->day = cdh->day;
-			joined->hour = cdh->hour;
+			while (cr != NULL) {
 
-//			while (cr != NULL) {
-//				joined->course = course;
-//				joined->room = cr->room;
-//				joined->day = cdh->day;
-//				joined->hour = cdh->hour;
-//
-////				while (res[index].course != NULL) {
-////					res[index] = *res[index].next;
-////				}
-////				res[index] = *joined;
-//
-//				cr = cr->next;
-//			}
-			res[index] = joined;
+				printf("%s\t%s\t%s\t%s\n", course, cr->room, cdh->day, cdh->hour);
 
+				cr = cr->next;
+			}
+//			joined->course = course;
+//			joined->room = cr->room;
+//			joined->day = cdh->day;
+//			joined->hour = cdh->hour;
+			//res[index] = joined;
+			printf("%s\t%s\t%s\t%s\n", course, cr->room, cdh->day, cdh->hour);
 		}
 	}
 	return res;
