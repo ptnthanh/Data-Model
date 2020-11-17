@@ -462,7 +462,7 @@ void print_CRDH(CRDHLIST table[]) {
 	for (int i = 0; i < TABLE_SIZE; i++) {
 		curr = table[i];
 		if (curr->course != NULL) {
-			printf("(%s, %s, %s, %s)\n", curr->course, curr->room, curr->day, curr->hour);
+			printf("(%s\t%s\t%s\t%s)\n", curr->course, curr->room, curr->day, curr->hour);
 			while (curr->next != NULL) {
 				curr = curr->next;
 				printf("%s\t%s\t%s\t%s\n", curr->course, curr->room, curr->day, curr->hour);

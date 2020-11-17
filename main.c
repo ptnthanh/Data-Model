@@ -213,6 +213,8 @@ int main (int argc, char *argv[]) {
 	join_CDH_CR(CDH_table, CR_table);
 	//print_CRDH(test);
 
+	alternative("Turing Aud.",CDH_table, CR_table);
+
 	//project_CRDH("Turing Aud.", test);
 
 //	Operations in Example 8.2

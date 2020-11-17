@@ -49,11 +49,11 @@ CRDHLIST* join_CDH_CR(CDHLIST cdh_table[], CRLIST cr_table[]) {
 	CRDHLIST* res = (CRDHLIST*)malloc(TABLE_SIZE * sizeof(CRDHLIST));
 	CDHLIST cdh;
 	CRLIST cr;
-//	CRDHLIST joined = (CRDHLIST)malloc(sizeof(CRDH));
-//	joined->course = (char*) malloc(7 * sizeof(char));
-//	joined->day = (char*) malloc(2 * sizeof(char));
-//	joined->hour = (char*) malloc(5 * sizeof(char));
-//	joined->room = (char*) malloc(30 * sizeof(char));
+	CRDHLIST joined = (CRDHLIST)malloc(sizeof(CRDH));
+	joined->course = (char*) malloc(7 * sizeof(char));
+	joined->day = (char*) malloc(2 * sizeof(char));
+	joined->hour = (char*) malloc(5 * sizeof(char));
+	joined->room = (char*) malloc(30 * sizeof(char));
 
 	int index;
 
@@ -66,8 +66,18 @@ CRDHLIST* join_CDH_CR(CDHLIST cdh_table[], CRLIST cr_table[]) {
 			cr = cr_table[index];
 
 			while (cr != NULL) {
+				//printf("%s, %s\n", cr->course, cr->room);
+//				joined->course = course;
+//				joined->room = cr->room;
+//				joined->day = cdh->day;
+//				joined->hour = cdh->hour;
+				//CRDHLIST temp = res[index];
+
+				//res[index] = joined;
 
 				printf("%s\t%s\t%s\t%s\n", course, cr->room, cdh->day, cdh->hour);
+				//printf("%s\t%s\t%s\t%s\n", res[index]->course, res[index]->room, res[index]->day, res[index]->hour);
+
 
 				cr = cr->next;
 			}
@@ -75,9 +85,11 @@ CRDHLIST* join_CDH_CR(CDHLIST cdh_table[], CRLIST cr_table[]) {
 //			joined->room = cr->room;
 //			joined->day = cdh->day;
 //			joined->hour = cdh->hour;
-			//res[index] = joined;
+//
+//			res[index]->next = joined;
 			printf("%s\t%s\t%s\t%s\n", course, cr->room, cdh->day, cdh->hour);
 		}
+
 	}
 	return res;
 }
@@ -126,6 +138,27 @@ CRDHLIST* join_CDH_CR(CDHLIST cdh_table[], CRLIST cr_table[]) {
 // 8.15: From CRDH
 //		1.  Select Room = "Turing Aud.,"
 //		2.  Project onto attributes Day & Hour
+
+void alternative(char* room, CDHLIST cdh_table[], CRLIST cr_table[]) {
+	CDHLIST cdh;
+	CRLIST cr;
+	int index;
+
+	for (int i = 0; i < TABLE_SIZE; i++) {
+		cdh = cdh_table[i];
+		if (cdh->course != NULL) {
+			index = hashString(cdh->course);
+			cr = cr_table[index];
+			while(cr != NULL) {
+				if (cr->room == room) {
+					printf("%s\t%s\n", cdh->day, cdh->hour);
+				}
+				cr = cr->next;
+			}
+		}
+	}
+}
+
 //CRDHLIST select_CRDH(char* room, CRDHLIST table) {
 //	CRDH curr;
 //	for (int i = 0; i < TABLE_SIZE; i++) {
