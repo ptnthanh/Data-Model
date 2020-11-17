@@ -53,10 +53,10 @@ void print_CSG(CSGLIST table[]) {
 	for (int i = 0; i < TABLE_SIZE; i++) {
 		curr = table[i];
 		if (curr->studentId != 0) {
-			printf("(%s, %d, %s)\n", curr->course, curr->studentId, curr->grade);
+			printf("%s\t%d\t%s\n", curr->course, curr->studentId, curr->grade);
 			while (curr->next != NULL) {
 				curr = curr->next;
-				printf("(%s, %d, %s)\n", curr->course, curr->studentId, curr->grade);
+				printf("%s\t%d\t%s\n", curr->course, curr->studentId, curr->grade);
 			}
 		}
 	}
@@ -136,10 +136,10 @@ void print_SNAP(SNAPLIST table[]) {
 	for (int i = 0; i < TABLE_SIZE; i++) {
 		curr = table[i];
 		if (curr->studentId != 0) {
-			printf("(%d, %s, %s, %s)\n", curr->studentId, curr->name, curr->address, curr->phone);
+			printf("%d\t%s\t%s\t%s\n", curr->studentId, curr->name, curr->address, curr->phone);
 			while (curr->next != NULL) {
 				curr = curr->next;
-				printf("(%d, %s, %s, %s)\n", curr->studentId, curr->name, curr->address, curr->phone);
+				printf("%d\t%s\t%s\t%s\n", curr->studentId, curr->name, curr->address, curr->phone);
 			}
 		}
 	}
@@ -217,10 +217,10 @@ void print_CP(CPLIST table[]) {
 	for (int i = 0; i < TABLE_SIZE; i++) {
 		curr = table[i];
 		if (curr->course != NULL) {
-			printf("(%s, %s)\n", curr->course, curr->prereq);
+			printf("%s\t%s\n", curr->course, curr->prereq);
 			while (curr->next != NULL) {
 				curr = curr->next;
-				printf("(%s, %s)\n", curr->course, curr->prereq);
+				printf("%s\t%s\n", curr->course, curr->prereq);
 			}
 		}
 	}
@@ -298,10 +298,10 @@ void print_CDH(CDHLIST table[]) {
 	for (int i = 0; i < TABLE_SIZE; i++) {
 		curr = table[i];
 		if (curr->course != NULL) {
-			printf("(%s, %s, %s)\n", curr->course, curr->day, curr->hour);
+			printf("%s\t%s\t%s\n", curr->course, curr->day, curr->hour);
 			while (curr->next != NULL) {
 				curr=curr->next;
-				printf("(%s, %s, %s)\n", curr->course, curr->day, curr->hour);
+				printf("%s\t%s\t%s\n", curr->course, curr->day, curr->hour);
 			}
 		}
 	}
@@ -375,10 +375,10 @@ void print_CR(CRLIST table[]) {
 	for (int i = 0; i < TABLE_SIZE; i++) {
 		curr = table[i];
 		if (curr->course != NULL) {
-			printf("(%s, %s)\n", curr->course, curr->room);
+			printf("%s\t%s\n", curr->course, curr->room);
 			while (curr->next != NULL) {
 				curr = curr->next;
-				printf("(%s, %s)\n", curr->course, curr->room);
+				printf("%s\t%s\n", curr->course, curr->room);
 			}
 		}
 	}

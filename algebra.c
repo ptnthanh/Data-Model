@@ -47,15 +47,13 @@ void join_CDH_CR(CDHLIST cdh_table[], CRLIST cr_table[]) {
 		cdh = cdh_table[i];
 
 		if (cdh->course != NULL) {
-			char* course = cdh->course;
-			index = hashString(course);
+			index = hashString(cdh->course);
 			cr = cr_table[index];
-
-			while (cr != NULL) {
-				printf("%s\t%s\t%s\t%s\n", course, cr->room, cdh->day, cdh->hour);
+			while (cr->next != NULL) {
+				printf("%s\t%s\t%s\t%s\n", cr->course, cr->room, cdh->day, cdh->hour);
 				cr = cr->next;
 			}
-			//printf("%s\t%s\t%s\t%s\n", course, cr->room, cdh->day, cdh->hour);
+			printf("%s\t%s\t%s\t%s\n", cr->course, cr->room, cdh->day, cdh->hour);
 		}
 	}
 }

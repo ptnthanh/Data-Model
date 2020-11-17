@@ -45,7 +45,7 @@ int main (int argc, char *argv[]) {
 	csg.grade = "C+";
 	insert_CSG(csg, CSG_table, true);
 
-	printf("All tuples in CSG:\n");
+	printf("\nAll tuples in CSG:\n");
 	print_CSG(CSG_table);
 
 	printf("\n\t*** SNAP: Student ID - Name - Address - Phone ***\n");
@@ -75,7 +75,7 @@ int main (int argc, char *argv[]) {
 	snap.phone = "555-9999";
 	insert_SNAP(snap, SNAP_table, true);
 
-	printf("All tuples in SNAP relation:\n");
+	printf("\nAll tuples in SNAP:\n");
 	print_SNAP(SNAP_table);
 
 	printf("\n\t*** CP: Course - Prerequisite ***\n");
@@ -119,7 +119,7 @@ int main (int argc, char *argv[]) {
 	cp.prereq = "CS205";
 	insert_CP(cp, CP_table, true);
 
-	printf("All tuples in CP: \n");
+	printf("\nAll tuples in CP: \n");
 	print_CP(CP_table);
 
 	printf("\n\t*** CDH: Course - Day - Hour ***\n");
@@ -154,7 +154,7 @@ int main (int argc, char *argv[]) {
 	cdh.hour = "10AM";
 	insert_CDH(cdh, CDH_table, true);
 
-	printf("All tuples in CDH: \n");
+	printf("\nAll tuples in CDH: \n");
 	print_CDH(CDH_table);
 
 	printf("\n\t*** CR: Course - Room ***\n");
@@ -177,18 +177,38 @@ int main (int argc, char *argv[]) {
 	cr.room = "Newton Lab";
 	insert_CR(cr, CR_table, true);
 
-	printf("All tuples in CR: \n");
+	printf("\nAll tuples in CR: \n");
 	print_CR(CR_table);
 
 
 	printf("\n\t *** Part 2 ***\n");
-	printf("What grade did StudentName get in CourseName?\n");
+	printf("\nWhat grade did StudentName get in CourseName?\n");
+	printf("Grade L. Van Pelt get in CS101 --> ");
 	char* grade = getGrade("L. Van Pelt", "CS101", SNAP_table, CSG_table);
 	printf("%s \n", grade);
 
+	printf("Grade P. Patty get in EE200? --> ");
+	grade = getGrade("P. Patty", "EE200", SNAP_table, CSG_table);
+	printf("%s \n", grade);
+
+	printf("Grade C. Brown get in EE200? --> ");
+	grade = getGrade("C. Brown", "EE200", SNAP_table, CSG_table);
+	printf("%s \n", grade);
+
+	//REPL_getGrade(SNAP_table, CSG_table);
+
 	printf("\nWhere is StudentName at Time on Day?\n");
-//	char* room = getRoom("C. Brown", "10AM", "Tu", CSG_table, CR_table, SNAP_table, CDH_table);
-//	printf("Room %s\n", room);
+	printf("C. Brown at 10AM on Tuesday --> ");
+	char* room = getRoom("C. Brown", "10AM", "Tu", CSG_table, CR_table, SNAP_table, CDH_table);
+	printf("%s\n", room);
+
+	printf("C. Brown at 9AM on Monday --> ");
+	room = getRoom("C. Brown", "9AM", "M", CSG_table, CR_table, SNAP_table, CDH_table);
+	printf("%s\n", room);
+
+	printf("L. Van Pelt at 9AM on Friday --> ");
+		room = getRoom("C. Brown", "9AM", "F", CSG_table, CR_table, SNAP_table, CDH_table);
+		printf("%s\n", room);
 
 //	REPL_getGrade(SNAP_table, CSG_table);
 

@@ -35,12 +35,14 @@ void REPL_getGrade(SNAPLIST snap_table[], CSGLIST csg_table[]) {
 	char course[6];
 	while (strcmp("quit", name) != 0 && strcmp("quit", name) != 0) {
 		printf("Enter student name (\"quit\" to quit): ");
-		fgets(name, 30, stdin);
+		//fgets(name, 30, stdin);
+		scanf("%s[^\n]", name);
 		if (strcmp("quit", name) == 0) {
 			break;
 		}
 		printf("Enter course name (\"quit\" to quit): ");
-		fgets(course, 6, stdin);
+		//fgets(course, 6, stdin);
+		scanf("%s[^\n]", course);
 		if (strcmp("quit", course) == 0) {
 			break;
 		}
