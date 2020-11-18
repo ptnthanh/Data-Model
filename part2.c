@@ -46,9 +46,6 @@ void REPL_getGrade(SNAPLIST snap_table[], CSGLIST csg_table[]) {
 		if (strcmp("quit", course) == 0) {
 			break;
 		}
-		printf("%s)\n", name);
-		printf("%s)\n", course);
-		printf("%s\n", getGrade(name, course, snap_table, csg_table));
 		if (getGrade(name, course, snap_table, csg_table) != NULL) {
 			printf("What grade did %s get in %s? --> %s\n", name, course,
 					getGrade(name, course, snap_table, csg_table));
@@ -92,17 +89,17 @@ void REPL_getRoom(CSGLIST csg_table[], CRLIST cr_table[], SNAPLIST snap_table[],
 	char day[2];
 	while (strcmp("quit", name) != 0 && strcmp("quit", name) != 0) {
 		printf("Enter student name (\"quit\" to quit): ");
-		fgets(name, 30, stdin);
+		scanf("%s[^\n]", name);
 		if (strcmp("quit", name) == 0) {
 			break;
 		}
 		printf("Enter the day (\"quit\" to quit): ");
-		fgets(day, 2, stdin);
+		scanf("%s[^\n]", day);
 		if (strcmp("quit", day) == 0) {
 			break;
 		}
 		printf("Enter the time (\"quit\" to quit): ");
-		fgets(time, 4, stdin);
+		scanf("%s[^\n]", time);
 		if (strcmp("quit", time) == 0) {
 			break;
 		}
@@ -110,7 +107,7 @@ void REPL_getRoom(CSGLIST csg_table[], CRLIST cr_table[], SNAPLIST snap_table[],
 			printf("Where is %s at %s on %s? --> %s\n", name, time, day,
 					getRoom(name, time, day, csg_table, cr_table, snap_table, cdh_table));
 		} else {
-			printf("Where is %s at %s on %s? --> No room found.", name, time, day);
+			printf("Where is %s at %s on %s? --> No room found.\n", name, time, day);
 		}
 	}
 }

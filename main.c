@@ -195,7 +195,7 @@ int main (int argc, char *argv[]) {
 	grade = getGrade("C. Brown", "EE200", SNAP_table, CSG_table);
 	printf("%s \n", grade);
 
-	//REPL_getGrade(SNAP_table, CSG_table);
+	REPL_getGrade(SNAP_table, CSG_table);
 
 	printf("\nWhere is StudentName at Time on Day?\n");
 	printf("C. Brown at 10AM on Tuesday --> ");
@@ -207,10 +207,10 @@ int main (int argc, char *argv[]) {
 	printf("%s\n", room);
 
 	printf("L. Van Pelt at 9AM on Friday --> ");
-		room = getRoom("C. Brown", "9AM", "F", CSG_table, CR_table, SNAP_table, CDH_table);
-		printf("%s\n", room);
+	room = getRoom("C. Brown", "9AM", "F", CSG_table, CR_table, SNAP_table, CDH_table);
+	printf("%s\n", room);
 
-//	REPL_getGrade(SNAP_table, CSG_table);
+	REPL_getRoom(CSG_table, CR_table, SNAP_table, CDH_table);
 
 
 	printf("\n\t *** Relational Algebra ***\n");
